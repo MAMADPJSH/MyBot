@@ -1,0 +1,27 @@
+{
+  "name": "mybot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MAMADPJSH/MyBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/MAMADPJSH/MyBot/issues"
+  },
+  "homepage": "https://github.com/MAMADPJSH/MyBot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^2.4.3",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7"
+  }
+}
