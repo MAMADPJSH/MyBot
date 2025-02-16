@@ -36,5 +36,18 @@ client.on("ready", () => {
 client.on("interactionCreate", (interaction) => {
   if (!interaction.isCommand()) return;
 
-  console.log(interaction);
+  if (interaction.commandName === "hey") {
+    interaction.reply("Hey!");
+  }
+
+  if (interaction.commandName === "ping") {
+    interaction.reply("Pong!");
+  }
+
+  if (interaction.commandName === "add") {
+    const num1 = interaction.options.getNumber("num1");
+    const num2 = interaction.options.getNumber("num2");
+    const sum = num1 + num2;
+    interaction.reply(`The sum of ${num1} and ${num2} is ${sum}`);
+  }
 });

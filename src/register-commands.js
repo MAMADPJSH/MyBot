@@ -1,4 +1,4 @@
-import { REST, Routes } from "discord.js";
+import { REST, Routes, ApplicationCommandOptionType } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
 const TOKEN = process.env.TOKEN;
@@ -13,6 +13,24 @@ const commands = [
   {
     name: "ping",
     description: "Replies with pong",
+  },
+  {
+    name: "add",
+    description: "Adds two numbers",
+    options: [
+      {
+        name: "num1",
+        description: "first number",
+        type: ApplicationCommandOptionType.Number,
+        required: true,
+      },
+      {
+        name: "num2",
+        description: "second number",
+        type: ApplicationCommandOptionType.Number,
+        required: true,
+      },
+    ],
   },
 ];
 
