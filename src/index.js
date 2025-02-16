@@ -1,9 +1,8 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { REST } from "@discordjs/rest";
 import dotenv from "dotenv";
-let TOKEN = process.env.TOKEN;
-
 dotenv.config();
+let TOKEN = process.env.TOKEN;
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
 
@@ -21,15 +20,21 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
 });
 
-client.on("messageCreate", (message) => {
-  console.log(message.content);
-  console.log(message.createdAt.toDateString());
-  console.log(message.author.username);
-});
+// client.on("messageCreate", (message) => {
+//   console.log(message.content);
+//   console.log(message.createdAt.toDateString());
+//   console.log(message.author.username);
+// });
 
-client.on("channelCreate", (channel) => {
-  console.log(channel.name);
-  console.log(channel.create);
-  console.log(channel.createdAt.toDateString());
-  console.log(channel.guild.name);
+// client.on("channelCreate", (channel) => {
+//   console.log(channel.name);
+//   console.log(channel.create);
+//   console.log(channel.createdAt.toDateString());
+//   console.log(channel.guild.name);
+// });
+
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isCommand()) return;
+
+  console.log(interaction);
 });
