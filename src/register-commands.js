@@ -32,6 +32,22 @@ const commands = [
       },
     ],
   },
+  {
+    name: "embed",
+    description: "Sends an embed",
+    options: [
+      {
+        name: "title",
+        description: "The title of the embed",
+        type: ApplicationCommandOptionType.String,
+      },
+      {
+        name: "description",
+        description: "The description of the embed",
+        type: ApplicationCommandOptionType.String,
+      },
+    ],
+  },
 ];
 
 const rest = new REST({ version: "10" }).setToken(TOKEN);
