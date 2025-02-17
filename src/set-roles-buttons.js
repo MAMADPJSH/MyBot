@@ -53,7 +53,6 @@ client.on("ready", async (c) => {
       content: "Choose a role:",
       components: [row],
     });
-    process.exit(0);
   } catch (error) {
     console.log(error);
   }

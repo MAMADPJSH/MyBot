@@ -31,8 +31,6 @@ client.on("ready", () => {
 // });
 
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
-
   if (interaction.commandName === "hey") {
     interaction.reply("Hey!");
   }
@@ -95,4 +93,6 @@ client.on("interactionCreate", async (interaction) => {
       });
     }
   }
+
+  if (!interaction.isCommand()) return;
 });
