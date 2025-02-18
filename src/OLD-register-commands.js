@@ -1,3 +1,4 @@
+/* 
 import { REST, Routes, ApplicationCommandOptionType } from "discord.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -65,3 +66,4 @@ const rest = new REST({ version: "10" }).setToken(TOKEN);
     console.log(error);
   }
 })();
+*/
