@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType, PermissionFlagsBits } from "discord.js";
 
 export default {
   name: "ban",
-  description: "Bans a user from the server",
+  description: "Bans a user",
   // devOnly: Boolean,
   // testOnly: Boolean,
   options: [
@@ -20,6 +20,7 @@ export default {
     },
   ],
   permissionsRequired: [PermissionFlagsBits.Administrator],
+  botPermissions: [PermissionFlagsBits.Administrator],
 
   callback: (client, interaction) => {
     interaction.reply("ban");

@@ -3,6 +3,7 @@ import { pathToFileURL } from "url";
 import { getAllFiles } from "./getAllFiles.js";
 import { __dirname } from "./__dirname.js";
 import commandExtractor from "./commandExtractor.js";
+
 export default async (exceptions = []) => {
   let localCommands = [];
 
