@@ -8,7 +8,7 @@ export default async (client) => {
     const localCommands = await getLocalCommands();
     const applicationCommands = await getApplicationCommands(
       client,
-      config["test-server"]
+      config.test_server
     );
 
     for (const localCommand of localCommands) {
