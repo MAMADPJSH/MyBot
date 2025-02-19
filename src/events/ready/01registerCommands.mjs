@@ -1,16 +1,21 @@
 import config from "../../../config.json" with { type: "json" }; //with is required for import json files
 import getApplicationCommands from "../../utils/getApplicationCommands.js";
 import getLocalCommands from "../../utils/getLocalCommands.js";
-
+import areCommandsDifferent from "../../utils/areCommandsDifferent.js";
 export default async (client) => {
   try {
-      const localCommands = getLocalCommands();
-      const applicationCommands = getApplicationCommands(client, config["test-server"]);
+      const localCommands = await getLocalCommands();
+      const applicationCommands = await getApplicationCommands(client, config["test-server"]);
 
       for (const localCommand of localCommands) {
-        const { name, description, options } = localCommand;
+        const { name, description, options = [] } = localCommand;
 
-        const existingCommand = await applicationCommands.cache.find((cmd) => cmd.name === name);
+        if (!name || !description) {
+          console.log("Command " + name + " has no name or description");
+          continue;
+        }
+
+        const existingCommand = await applicationCommands.cache.find((command) => command.name === name);
 
         if (existingCommand) {
           if (localCommand.deleted) {
@@ -18,9 +23,33 @@ export default async (client) => {
             console.log("deleted: " + name);
             continue;
           }
+
+          if (areCommandsDifferent(existingCommand, localCommand)) {
+            const updateData = {
+              name, 
+              description,
+              options: options || [],
+            }
+
+            await applicationCommands.edit(existingCommand.id, updateData);
+            console.log("Updated: " + name);
+          }
+        } else {
+            if (localCommand.deleted) {
+              continue;
+            }
+
+            const createData = {
+              name,
+              description,
+              options: options || [],
+            }
+
+            await applicationCommands.create(createData);
+            console.log("Created: " + name);
         }
       }
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+      console.log(error + " at this command: name: " + name + " description: " + description);
+    }
 };

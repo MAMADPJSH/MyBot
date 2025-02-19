@@ -1,3 +1,4 @@
+//gets the application commands that are already registered in the server
 export default async (client, guildId) => {
   let applicationCommands;
 

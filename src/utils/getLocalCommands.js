@@ -2,7 +2,7 @@ import path from "path";
 import { pathToFileURL } from "url";
 import { getAllFiles } from "./getAllFiles.js";
 import { __dirname } from "./__dirname.js";
-
+import commandExtractor from "./commandExtractor.js";
 export default async (exceptions = []) => {
   let localCommands = [];
 
@@ -17,9 +17,20 @@ export default async (exceptions = []) => {
     for (const commandFile of commandFiles) {
       const commandObject = await import(pathToFileURL(commandFile));
 
-      if (exceptions.includes(commandObject.name)) continue;
+      try {
+        const command = await commandExtractor(commandFile);
 
-      localCommands.push(commandObject);
+        if (!command) {
+          console.log("This command has no default export: " + commandFile);
+          continue;
+        }
+
+        if (exceptions.includes(command.name)) continue;
+
+        localCommands.push(command);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
