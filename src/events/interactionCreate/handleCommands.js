@@ -1,6 +1,7 @@
 import importJSON from "../../utils/importJSON.js";
 const config = await importJSON("../../config.json");
 import getLocalCommands from "../../utils/getLocalCommands.js";
+import { MessageFlags } from "discord.js";
 
 export default async (client, interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -12,15 +13,13 @@ export default async (client, interaction) => {
       return command.name === interaction.commandName;
     });
 
-    console.log(commandObject);
-
     if (!commandObject) return console.log("Command not found");
 
     //check if the command is only available to the developers
     if (commandObject.devOnly && !devs.includes(interaction.user.id)) {
       interaction.reply({
         content: "This command is only available to the developers.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -29,7 +28,7 @@ export default async (client, interaction) => {
     if (commandObject.testOnly && !(interaction.guildId === testServer)) {
       interaction.reply({
         content: "This command cannot be ran here",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -40,7 +39,7 @@ export default async (client, interaction) => {
         if (!interaction.member.permissions.has(permission)) {
           interaction.reply({
             content: "You dont have the permission to run this command",
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           });
           break;
         }
@@ -54,7 +53,7 @@ export default async (client, interaction) => {
         if (!bot.permissions.has(permission)) {
           interaction.reply({
             content: "The bot doesnt have the permission to run this command",
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           });
           break;
         }

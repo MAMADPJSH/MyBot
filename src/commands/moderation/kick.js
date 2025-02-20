@@ -3,6 +3,7 @@ import {
   ChatInputCommandInteraction,
   ApplicationCommandOptionType,
   PermissionFlagsBits,
+  MessageFlags,
 } from "discord.js";
 
 export default {
@@ -37,7 +38,7 @@ export default {
     const reason =
       interaction.options.get("reason")?.value || "No reason provided";
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     const targetUser = await interaction.guild.members.fetch(targetUserId);
 
@@ -45,7 +46,7 @@ export default {
     if (!targetUser) {
       await interaction.editReply({
         content: "Could not find that user",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -54,7 +55,7 @@ export default {
     if (targetUser.id === interaction.guild.ownerId) {
       await interaction.editReply({
         content: "You cannot kick the owner of the server",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -67,7 +68,7 @@ export default {
     if (targetUserRolePosition >= requestUserRolePosition) {
       await interaction.editReply({
         content: "You cannot kick a user with a higher or equal role to you",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -76,7 +77,7 @@ export default {
     if (targetUserRolePosition >= botRolePosition) {
       await interaction.editReply({
         content: "I cannot kick a user with a higher or equal role to me",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -86,7 +87,7 @@ export default {
       await targetUser.kick({ reason });
       await interaction.editReply({
         content: `Successfully kicked ${targetUser}\nReason: ${reason}`,
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     } catch (error) {
       console.log(error);

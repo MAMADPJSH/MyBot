@@ -1,3 +1,5 @@
+import { MessageFlags } from "discord.js";
+
 export default {
   name: "ping",
   description: "Replies with bot latency",
@@ -6,7 +8,7 @@ export default {
   // options: Object[]
 
   callback: async (client, interaction) => {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
     const reply = await interaction.fetchReply();
     const ping = reply.createdTimestamp - interaction.createdTimestamp;
 
