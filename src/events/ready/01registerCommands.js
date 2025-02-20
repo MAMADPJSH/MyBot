@@ -56,8 +56,6 @@ export default async (client) => {
       }
     }
   } catch (error) {
-    console.log(
-      error + " at this command: name: " + name + " description: " + description
-    );
+    console.log(error);
   }
 };

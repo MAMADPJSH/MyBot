@@ -6,26 +6,26 @@ import {
 } from "discord.js";
 
 export default {
-  name: "ban",
-  description: "Bans a user",
+  name: "kick",
+  description: "kicks a user",
   // devOnly: Boolean,
   // testOnly: Boolean,
   options: [
     {
       name: "target",
-      description: "The user to ban",
+      description: "The user to kick",
       required: true,
       type: ApplicationCommandOptionType.Mentionable,
     },
     {
       name: "reason",
-      description: "The reason for the ban",
+      description: "The reason for the kick",
       required: false,
       type: ApplicationCommandOptionType.String,
     },
   ],
-  permissionsRequired: [PermissionFlagsBits.BanMembers],
-  botPermissions: [PermissionFlagsBits.BanMembers],
+  permissionsRequired: [PermissionFlagsBits.KickMembers],
+  botPermissions: [PermissionFlagsBits.KickMembers],
 
   /** This is necessaryyy to get intelisense to work
    *
@@ -53,7 +53,7 @@ export default {
     // checks if user is the owner of the server
     if (targetUser.id === interaction.guild.ownerId) {
       await interaction.editReply({
-        content: "You cannot ban the owner of the server",
+        content: "You cannot kick the owner of the server",
         ephemeral: true,
       });
       return;
@@ -66,7 +66,7 @@ export default {
     // checks if target has a higher or equal role to the person running the command
     if (targetUserRolePosition >= requestUserRolePosition) {
       await interaction.editReply({
-        content: "You cannot ban a user with a higher or equal role to you",
+        content: "You cannot kick a user with a higher or equal role to you",
         ephemeral: true,
       });
       return;
@@ -75,17 +75,17 @@ export default {
     // checks if bot has a higher role than target
     if (targetUserRolePosition >= botRolePosition) {
       await interaction.editReply({
-        content: "I cannot ban a user with a higher or equal role to me",
+        content: "I cannot kick a user with a higher or equal role to me",
         ephemeral: true,
       });
       return;
     }
 
-    //Banning the user
+    //Kicking the user
     try {
-      await targetUser.ban({ reason });
+      await targetUser.kick({ reason });
       await interaction.editReply({
-        content: `Successfully banned ${targetUser}\nReason: ${reason}`,
+        content: `Successfully kicked ${targetUser}\nReason: ${reason}`,
         ephemeral: true,
       });
     } catch (error) {

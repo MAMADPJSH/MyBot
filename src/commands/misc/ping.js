@@ -1,11 +1,15 @@
 export default {
   name: "ping",
-  description: "Pong!",
+  description: "Replies with bot latency",
   // devOnly: Boolean,
   // testOnly: Boolean,
   // options: Object[]
 
   callback: async (client, interaction) => {
-    await interaction.reply(`Pong! ${client.ws.ping}ms`);
+    await interaction.deferReply({ ephemeral: true });
+    const reply = await interaction.fetchReply();
+    const ping = reply.createdTimestamp - interaction.createdTimestamp;
+
+    interaction.editReply(`Pong! ${ping}ms`);
   },
 };
